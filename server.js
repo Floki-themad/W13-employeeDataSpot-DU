@@ -1,11 +1,10 @@
 require("console.table")
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const inquirer = require('inquirer');
-
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'root',
+    password: 'Jenny@1060!',
     database: 'company_db',
     //port: 3306
 })
@@ -16,8 +15,22 @@ db.connect(function(err){
     callRoles()
     callManagers()
     callEmployees()
-    startmenu()
+    startMenu()
 })
+const interfaceQuestion = [{
+    type: "list",
+    message: "What would you like to do?",
+    name: "choice",
+    choices: ["View All Employees",
+      "Add Employee",
+      "Update Employee Role",
+      "View All Roles",
+      "Add Role",
+      "View All Departments",
+      "Add Department",
+      "Quit"]
+  }]
+
 const addDepartmentQuestion = [{
     type: "input",
     message: "what is the name of this new department?",
@@ -113,7 +126,7 @@ let updateEmployeeQuestions = [{
 }]
 
 function startMenu(){
-    inquirer.prompt(interFaceQuestion)
+    inquirer.prompt(interfaceQuestion)
     .then(function(response){
         switch(response.choice){
             case "View Employees":
@@ -139,7 +152,7 @@ function startMenu(){
                 break;
             default:
                 db.end()
-                process.exit(0)
+                //process.exit(0)
         }
     })
 }
@@ -149,7 +162,7 @@ function viewAllEmp(){
     function(err,data){
        if(err)throw err
        console.table(data)
-       startMenu() 
+       //startMenu() 
     })
 };
 
@@ -157,7 +170,7 @@ function viewAllRoles(){
     db.query("SELECT departments.department_name, roles.title, roles.salary FROM roles JOIN departments ON roles.department_id = departments.id;", function(err,data){
         if(err) throw err
         console.table(data)
-        startmenu()
+        startMenu()
     })
 };
 
@@ -172,7 +185,7 @@ function viewAllDepartments(){
 function addDepartment(){
     inquirer.prompt(addDepartmentQuestion)
     .then(function(response){
-        db.query("INSERT INTO departments (department_name VALUES (?);",
+        db.query("INSERT INTO departments (department_name) VALUES (?);",
         response.DeptName,
         function(err,data){
             if(err) throw err
@@ -185,14 +198,14 @@ function addRole(){
     callDepts()
     inquirer.prompt(addRoleQuestions)
     .then(function(response){
-        let deptID = deptArray.indexOf(response.RoleDept) +1;
+        let deptID = deptArray.indexOf(response.RoleDept) + 1;
         db.query("INSERT INTO roles (title, salary, department_id) VALUES (?,?,?);",
         [response.RoleName,
         response.RoleSalary,
          deptID],
          function(err,data){
              if(err) throw err
-             startmenu()
+             startMenu()
          })
     })
 }
@@ -202,8 +215,8 @@ function addEmp(){
     callManagers()
     inquirer.prompt(addEmployeeQuestions)
     .then(function(response){
-        let roleID = rolesArray.indexOf(response.empRole) +1;
-        let managerID = managerArray.indexOf(response.empManager) +1;
+        let roleID = rolesArray.indexOf(response.empRole) + 1;
+        let managerID = managerArray.indexOf(response.empManager) + 1;
         db.query("INSERT INTO employees (first_name, last_name, roles_id, manager_id) VALUES (?,?,?,?);",
         [response.firstName,
         response.lastName,
@@ -225,7 +238,7 @@ function updateEmpRole(){
         console.log(response.Updatee)
         let roleID = rolesArray.indexOf(response.newRole) +1;
         console.log(roleID)
-        db.query(`UPDATE employees SET roles_id = ${roleid} WHERE employees.first_name = "${response.Updatee}`, 
+        db.query(`UPDATE employees SET roles_id = ${roleID} WHERE employees.first_name = "${response.Updatee}"`, 
         function(err,data){
             if(err) throw err
             startMenu()
