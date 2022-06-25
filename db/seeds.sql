@@ -1,5 +1,5 @@
 USE company_db;
-
+-- to insert information into the data tables. 
 INSERT INTO departments (department_name)
 VALUES ("Finace"),
 ("Marketing"),

@@ -2,7 +2,7 @@ DROP DATABASE IF EXISTS company_db;
 CREATE DATABASE company_db;
 
 USE company_db;
-
+-- create a tables in the data base
 CREATE TABLE departments (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     department_name VARCHAR(30) NOT NULL
