@@ -134,29 +134,29 @@ function startMenu() {
     inquirer.prompt(interfaceQuestion)
         .then(function (response) {
             switch (response.choice) {
-                case "View Employees":
+                case "View All Employees":
                     viewAllEmp()
                     break;
                 case "Add Employee":
                     addEmp()
                     break;
-                case "Update employee role":
+                case "Update Employee Role":
                     updateEmpRole()
                     break;
-                case "View all roles":
+                case "View All Roles":
                     viewAllRoles()
                     break;
-                case "Add role":
+                case "Add Role":
                     addRole()
                     break;
-                case "View all departments":
+                case "View All Departments":
                     viewAllDepartments()
                     break;
-                case "Add department":
+                case "Add Department":
                     addDepartment()
                     break;
                 default:
-                    db.end()
+                    dbconnection.end()
                 //process.exit(0)
             }
         })
@@ -214,24 +214,24 @@ function addRole() {
         })
 }
 // function to add an employee 
-// function addEmp() {
-//     callRoles()
-//     callManagers()
-//     inquirer.prompt(addEmployeeQuestions)
-//         .then(function (response) {
-//             let roleID = rolesArray.indexOf(response.empRole) + 1;
-//             let managerID = managerArray.indexOf(response.empManager) + 1;
-//             dbconnection.query("INSERT INTO employees (first_name, last_name, roles_id, manager_id) VALUES (?,?,?,?);",
-//                 [response.firstName,
-//                 response.lastName,
-//                     roleID,
-//                     managerID],
-//                 function (err, data) {
-//                     if (err)throw err
-//                     startMenu()
-//                 })
-//         })
-// }
+function addEmp() {
+    callRoles()
+    callManagers()
+    inquirer.prompt(addEmployeeQuestions)
+        .then(function (response) {
+            let roleID = rolesArray.indexOf(response.empRole) + 1;
+            let managerID = managerArray.indexOf(response.empManager) + 1;
+            dbconnection.query("INSERT INTO employees (first_name, last_name, roles_id, manager_id) VALUES (?,?,?,?);",
+                [response.firstName,
+                response.lastName,
+                    roleID,
+                    managerID],
+                function (err, data) {
+                    if (err)throw err
+                    startMenu()
+                })
+        })
+}
 // function to update an employee role. 
 function updateEmpRole() {
     callRoles()

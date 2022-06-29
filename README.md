@@ -2,6 +2,7 @@
 ## _This is a command-line application that will allow a user to navigate a database of employees, their roles, and salarys.  as well as update any of the previeous information._ 
 <br>
 <br>
+<img src ="img/Screen Shot 2022-06-29 at 2.52.30 PM.png">
 
 ## User story. 
 ```md
@@ -17,7 +18,7 @@ SO THAT I can organize and plan my business
 * to use the application download the previous packagaes and then navigae to the server.js file in the terminal and run ```node server.js```
 
 ### In-action 
-[Here is a link to a short video showing the application](https://youtu.be/7-9EuGvP1Jw)
-
+[Here is a link to a short video showing the application](https://youtu.be/STIdGVv4Wc0)
+<img src ="img/Screen Shot 2022-06-29 at 2.52.50 PM.png">
 ### Questions.
 *Please feel free to email me with anyquestions. 
